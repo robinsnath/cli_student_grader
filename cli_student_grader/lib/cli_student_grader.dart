@@ -30,6 +30,20 @@ Choose an option:""");
     var choice = stdin.readLineSync();
 
     switch (choice) {
+      case '1':
+        print("Enter student name:");
+        var name = stdin.readLineSync() ?? "Unknown";
+
+        Map<String, dynamic> newStudent = {
+          "name": name,
+          "scores": <int>[],
+          "subjects": {...availableSubjects},
+          "bonus": null,
+          "comment": null,
+        };
+        students.add(newStudent);
+        print("Student '$name' added successfully!");
+        break;
     }
   } while (isRunning);
 
