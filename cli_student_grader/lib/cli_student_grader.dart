@@ -161,6 +161,42 @@ Choose an option:""");
 ║ Feedback: $feedback                            ║
 ╚════════════════════════════════════════════════╝""");
         break;
+
+      case '7':
+        if (students.isEmpty) break;
+        int passCount = 0;
+
+        var summaryNames = [
+          for (var s in students) s["name"]
+        ];
+
+        for (var s in students) {
+          double sSum = 0;
+          for (int sc in s["scores"]) { sSum += sc; }
+          double avg = s["scores"].isEmpty ? 0 : sSum / s["scores"].length;
+          double totalAvg = avg + (s["bonus"] ?? 0);
+
+          if (s["scores"].isNotEmpty && totalAvg >= 60) {
+            passCount++;
+          }
+        }
+
+        print("\n--- CLASS SUMMARY ---");
+        print("Total Students: ${students.length}");
+        print("Student Names: $summaryNames");
+        print("Passing Students: $passCount");
+
+        Set<String> uniqueGrades = {};
+        print("Unique Grades in Class: $uniqueGrades");
+        break;
+
+      case '8':
+        isRunning = false;
+        print("Exiting... Goodbye!");
+        break;
+
+      default:
+        print("Invalid option.");
     }
   } while (isRunning);
 
