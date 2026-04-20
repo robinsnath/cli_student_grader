@@ -113,6 +113,54 @@ Choose an option:""");
           print(tags.join(" | "));
         }
         break;
+
+      case '6':
+        if (students.isEmpty) break;
+        for (int i = 0; i < students.length; i++) {
+          print("$i. ${students[i]["name"]}");
+        }
+        int rIdx = int.parse(stdin.readLineSync() ?? "0");
+        var st = students[rIdx];
+
+        double sum = 0;
+        for (int s in st["scores"]) {
+          sum = sum + s;
+        }
+
+        double rawAvg = st["scores"].isEmpty ? 0 : sum / st["scores"].length;
+        double finalAvg = rawAvg + (st["bonus"] ?? 0);
+        if (finalAvg > 100) finalAvg = 100;
+
+        String grade = "";
+        if (finalAvg >= 90) grade = "A";
+        else if (finalAvg >= 80) grade = "B";
+        else if (finalAvg >= 70) grade = "C";
+        else if (finalAvg >= 60) grade = "D";
+        else if (finalAvg < 60) grade = "F";
+
+        // 14. Switch expression with pattern matching
+        String feedback = switch (grade) {
+          "A" => "Outstanding performance!",
+          "B" => "Good work, keep it up!",
+          "C" => "Satisfactory. Room to improve.",
+          "D" => "Needs improvement.",
+          "F"  => "Failing. Please seek help.",
+          _  => "Unknown grade.",
+        };
+
+        print("""
+╔════════════════════════════════════════════════╗
+║        REPORT CARD                             ║
+╠════════════════════════════════════════════════╝
+║ Name:    ${st["name"]}                         ║
+║ Scores:  ${st["scores"]}                       ║
+║ Bonus:   +${st["bonus"] ?? 0}                  ║
+║ Average: ${finalAvg.toStringAsFixed(1)}        ║
+║ Grade:   $grade                                ║
+║ Comment: ${st["comment"] ?? "N/A"}             ║
+║ Feedback: $feedback                            ║
+╚════════════════════════════════════════════════╝""");
+        break;
     }
   } while (isRunning);
 
