@@ -44,6 +44,31 @@ Choose an option:""");
         students.add(newStudent);
         print("Student '$name' added successfully!");
         break;
+
+      case '2':
+        if (students.isEmpty) {
+          print("No students found.");
+          break;
+        }
+
+        for (int i = 0; i < students.length; i++) {
+          print("$i. ${students[i]["name"]}");
+        }
+
+        print("Select student index:");
+        int idx = int.parse(stdin.readLineSync() ?? "0");
+
+        print("Enter score (0-100):");
+        int score = int.parse(stdin.readLineSync() ?? "0");
+
+        while (score < 0 || score > 100) {
+          print("Invalid! Enter score between 0-100:");
+          score = int.parse(stdin.readLineSync() ?? "0");
+        }
+
+        students[idx]["scores"].add(score);
+        print("Score recorded.");
+        break;
     }
   } while (isRunning);
 
